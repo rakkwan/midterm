@@ -6,6 +6,7 @@
  * Time: 1:14 PM
  */
 
+session_start();
 // Turn on error reporting
 ini_set('display_error', 1);
 error_reporting(E_ALL);
@@ -34,6 +35,15 @@ $f3->route('GET /survey', function()
     $view = new Template();
     echo $view->render('views/home.html');
 });
+
+$f3->route('POST /summary', function()
+{
+    $_SESSION['name'] = $_POST['name'];
+    $_SESSION['survey'] = $_POST['survey'];
+    $view = new Template();
+    echo $view->render("views/summary.html");
+});
+
 
 
 // Run Fat-Free
