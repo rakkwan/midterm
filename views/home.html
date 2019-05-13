@@ -12,13 +12,13 @@
 
 
 <form action="#" method="post">
-    <check if="{{ isset(@errors['color'])}}">
-        <p>{{ @errors['color']}}</p>
-    </check>
 
     <label>Name
         <input type="text" name="name">
     </label><br>
+    <check if="{{ isset(@errors['name'])}}">
+        <p>{{ @errors['name']}}</p>
+    </check>
 
     <label>Check all that apply:
         <div class="form-check">
@@ -39,6 +39,10 @@
             </label>
         </div>
     </label>
+
+    <check if="{{ isset(@errors['survey'])}}">
+        <p>{{ @errors['survey']}}</p>
+    </check>
 
     <button type="submit">Submit</button>
 </form>

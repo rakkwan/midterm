@@ -36,14 +36,55 @@ $f3->route('GET /survey', function()
     echo $view->render('views/home.html');
 });
 
-$f3->route('POST /summary', function()
+$f3->route('GET|POST /home', function($f3)
 {
-    $_SESSION['name'] = $_POST['name'];
-    $_SESSION['survey'] = $_POST['survey'];
+    // If form has been submitted, validate
+    if(!empty($_POST)) {
+        // Get data from form
+        $name = $_POST['name'];
+        $survey = $_POST['survey'];
+
+        // Add data to hive
+        $f3->set('name', $name);
+        $f3->set('survey', $survey);
+
+        // if data is valid
+        if (validInfo())
+        {
+            // write data to Session
+            if (empty($name))
+            {
+                $_SESSION['name'] = "Please enter your name";
+            }
+            else
+            {
+                $_SESSION['name'] = $name;
+            }
+
+            if (empty($survey))
+            {
+                $_SESSION['survey'] = "No check apply";
+            }
+            else
+            {
+                $_SESSION['survey'] = implode(', ', $survey);
+            }
+
+            // redirect to summary
+            $f3->reroute('/summary');
+        }
+    }
+    // display a personal views
     $view = new Template();
-    echo $view->render("views/summary.html");
+    echo $view->render('views/home.html');
 });
 
+$f3->route('GET|POST /summary', function()
+{
+    // display a order received views
+    $view = new Template();
+    echo $view->render('views/summary.html');
+});
 
 
 // Run Fat-Free
