@@ -28,10 +28,10 @@ $f3->set('survey', array('This midterm is easy',
 $f3->route('GET /', function()
 {
     echo "<h1>Midterm Survey</h1>";
-    echo "<a href=''>Take my Midterm Survey</a>";
+    echo "<a href='survey'>Take my Midterm Survey</a>";
 });
 
-$f3->route('GET /survey', function()
+$f3->route('GET|POST /survey', function()
 {
     $view = new Template();
     echo $view->render('views/home.html');
